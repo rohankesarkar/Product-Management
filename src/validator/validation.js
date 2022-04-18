@@ -23,6 +23,9 @@ const isValidName = function (value) {
 const isValidCurrencyId = function (currencyId) {
     return ['INR'].indexOf(currencyId) !== -1
 }
+const isValidStatus = function (status) {
+    return ['pending', 'completed', 'canceled'].indexOf(status) !== -1
+}
 
 const isValidPhone = function (value) {
     if (!(/^(\+91[\-\s]?)?[0]?(91)?[6789]\d{9}$/.test(value.trim()))) {
@@ -116,4 +119,7 @@ module.exports.isValidCurrencyFormat = isValidCurrencyFormat
 module.exports.isValidSize = isValidSize
 module.exports.isValidName = isValidName
 module.exports.isValidDigit = isValidDigit
+module.exports.isValidStatus = isValidStatus
+
+
 
