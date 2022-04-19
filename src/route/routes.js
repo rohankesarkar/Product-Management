@@ -14,29 +14,30 @@ router.get('test-me', function(req,res){
 
 
 
-
+//user
 router.post('/register', userController.registerUser)
-router.get('/user/:userId/profile',auth.authentication, userController.getUser)
 router.post('/login', userController.loginUser)
+router.get('/user/:userId/profile',auth.authentication, userController.getUser)
 router.put('/user/:userId/profile', auth.authorization, userController.updateUser)
 
 
-
+//product
 router.post('/products', productController.createProduct)
 router.get('/products', productController.getProduct)
 router.get('/products/:productId', productController.getProductById)
 router.put('/products/:productId', productController.updateProduct)
 router.delete('/products/:productId', productController.deleteProduct)
 
+//cart
 router.post('/users/:userId/cart',auth.authentication, cartController.createCart)
 router.put('/users/:userId/cart',auth.authentication, cartController.updateCart)
 router.get('/users/:userId/cart',auth.authentication, cartController.getCartById)
 router.delete('/users/:userId/cart', auth.authentication,cartController.deleteCart)
 
 
-
-router.post('/users/:userId/orders', orderController.createOrder)
-router.put('/users/:userId/orders', orderController.updateOrder)
+//order
+router.post('/users/:userId/orders',auth.authorization, orderController.createOrder)
+router.put('/users/:userId/orders',auth.authorization, orderController.updateOrder)
 
 
 router.get("*", async function(req,res){

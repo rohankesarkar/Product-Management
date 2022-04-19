@@ -16,56 +16,27 @@ const createCart = async (req, res) => {
     }
     const {productId, quantity, } = requestBody
 
-    // if(!validator.isValid(price)){
-    //     return res.status(400).send({status:false, message:"Bad Request price is invalid or empty"})
-    // }
-    // if(!validator.isValidPrice(price)){
-    //     return res.status(400).send({status:false, message:"Bad Request price is invalid it only accepts number & digits"})
-    // }
-    // const isItemPresent = items.filter((elem) =>{
-    //     return elem.trim()
-    // })
-    // if(!(validator.isValidBody(items) && validator.isValidBody(isItemPresent))){
-    //     return res.status(400).send({status:false, message:"Bad Request request there no product in cart"})
-
-    // } 
+    
      
     
          if (!productId) {
-            return res.status(400).send({
-              status: false,
-              msg: `productId is must please provide productId`,
-            });
+            return res.status(400).send({status: false,msg: `productId is must please provide productId`});
           }
           if (!validator.isValidobjectId(productId)) {
-            return res
-              .status(400)
-              .send({ status: false, message: `this productId ${productId} Invalid` });
+            return res.status(400).send({ status: false, message: `this productId ${productId} Invalid` });
           }
-          let productPresent = await productModel.findOne({
-            _id: productId,
-            isDeleted: false,
-          });
+          let productPresent = await productModel.findOne({ _id: productId,isDeleted: false});
 
 
           if (!productPresent) {
-            return res
-              .status(404)
-              .send({ status: false, message: `product with this id : ${productId} not found`});
+            return res.status(404).send({ status: false, message: `product with this id : ${productId} not found`});
           }
 
           
-
-          
-
-
-          if (quantity){
+ if (quantity){
 
             if(!validator.isValid(quantity)){
-            return res.status(400).send({
-              status: false,
-              msg: `quantity is must please provide`,
-            });
+            return res.status(400).send({status: false,msg: `quantity is must please provide`});
             }
 
             if(!/^[1-9]{1}[0-9]{0,15}$/.test(quantity)){
@@ -74,7 +45,7 @@ const createCart = async (req, res) => {
             
 
           }
-          console.log(Number(productPresent.installments), ( Number(quantity) || 1))
+          
           if(!(Number(productPresent.installments) >= ( Number(quantity) || 1))){
                 return res.status(400).send({status:false, message:`stock is less than required quantity Available Stock : ${productPresent.installments}`})
         }
@@ -84,7 +55,7 @@ const createCart = async (req, res) => {
 
 
          const cartExists = await cartModel.findOne({userId:userId})
-        console.log(cartExists)
+    
          if(cartExists){
 
             let itemsExists = cartExists.items
@@ -336,26 +307,6 @@ const deleteCart = async function (req, res) {
 
 
 module.exports.deleteCart = deleteCart
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 module.exports.updateCart = updateCart
 module.exports.createCart = createCart
 module.exports.getCartById = getCartById

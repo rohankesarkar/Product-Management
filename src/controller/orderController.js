@@ -1,6 +1,6 @@
 const orderModel = require("../models/orderModel")
 const validator  = require("../validator/validator")
-//const cartModel = require("../models/cartModel")
+
 
 
 
@@ -58,14 +58,6 @@ const updateOrder = async function (req, res) {
         let userId = req.params.userId
         let { orderId , status} = req.body
 
-        // if (!validator.isValidobjectId(userId)) {
-        //     return res.status(400).send({ status: false, msg: "invalid userId" })
-        // }
-        // const userExist = await userModel.findById({ _id: userId })
-        // if (!userExist) {
-        //     return res.status(404).send({ status: false, msg: "user not found" })
-        // }
-
         if(!validator.isValidBody(req.body)){
             return res.status(400).send({status:false, message:"Bad Request request body is empty"})
         }
@@ -80,8 +72,7 @@ const updateOrder = async function (req, res) {
             return res.status(404).send({ status: false, msg: "order does not exist" })
         }
 
-      
-        console.log(orderExist, orderExist.status)
+
 
         if(orderExist.status == "completed"){
             return res.status(400).send({status:false, message:"this order is already completed you can not change the status"})
@@ -112,29 +103,7 @@ const updateOrder = async function (req, res) {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 module.exports.updateOrder = updateOrder
-
-
-
-
-
-
-
-
-
-
 module.exports.createOrder = createOrder
 
 
